@@ -1,46 +1,67 @@
 #include <cstdlib>
 #include <string.h>
+#include <ncurses.h>
 #include "vector"
-#include "globals.h"
-#include "printing.h"
+#include "battle.h"
 using namespace std;
 
 void gameplay();
 
-void exit()
-{
-  cout << "good bye" << endl;
-}
 
-void options()
+
+void getPokemonOptions()
 {
-  cout << "some_instructions" << endl;
-  gameplay();
+  int len = (sizeof(listOfPokemons)/sizeof(*listOfPokemons));
+
+  string  pokemonNames[2000];
+
+  for(int i = 0; i < len; i++)
+  {
+    pokemonNames[i] = listOfPokemons[i].name;
+  }
+
+   printOptions("1", pokemonNames, len);
+   player1Pokemon = listOfPokemons[takeInput(0, 1, len) - 1];
+   cout << "********************************************************" << endl;
+
+   printOptions("2", pokemonNames, len);
+   player2Pokemon = listOfPokemons[takeInput(0, 1, len) - 1];
+   cout << "********************************************************" << endl;
+
 }
 
 void start()
 {
-  cout << "where it all begins " << endl;
-  gameplay();
+  getPokemonOptions();
+  printChoices(player1Pokemon.name, player2Pokemon.name);
+  startGame(player1Pokemon, player2Pokemon);
+
+  return;
 }
 
 void gameplay()
 {
-  string answer = takeInput();
+  int answer = takeInput(1, 1, 3);
   
-  switch(stoi(answer))
+  switch(answer)
   {
     case 1 : start(); break;
-    case 2 : options(); break;
+    case 2 : options(); gameplay(); break;
     case 3 : exit(); break;
-    return;
   }
 }
 
 int main(int argc, char* argv[]) //main function
 {
+  //gameplay();
+  if(argc == 2)
+  {
+    start();
+    return 0;
+  }
   startScreen();
   gameplay();
+
 
   return 0;
 }
