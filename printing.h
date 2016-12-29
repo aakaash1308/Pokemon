@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <unistd.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -69,6 +70,9 @@ void printOptions(string player, string pokemons[], int len)
 	}
 }
 
+//
+// Showing player's choices
+//
 void printChoices(string player1, string player2)
 {
 	string toPrint = "Player 1 chose ";
@@ -84,19 +88,26 @@ void printChoices(string player1, string player2)
 	cout << "********************************************************" << endl;
 }
 
+//
+// Printing player's hits
+//
 void printHit(string name, string move)
 {
 	string toPrint = " used ";
 	toPrint = name + toPrint + move;
 	slowPrint(toPrint);
 }
+
+//
+// Printing player's moves
+//
 void printMoves(string name, string* moves)
 {
 	string toPrint = " choose your moves";
 	toPrint = name + toPrint;
 	slowPrint(toPrint);
 
-	for (int i = 0; i < 4; i++) // going through the pokemon
+	for (int i = 0; i < 4; i++) // going through the moves
 	{
 		cout << "\t" << i + 1 << ") ";
 		slowPrint(moves[i]);
@@ -105,6 +116,9 @@ void printMoves(string name, string* moves)
 cout << "********************************************************" << endl;
 }
 
+//
+// Printing Players Damage
+//
 void printDamage(int damage, int hp, string attacker, string defender)
 {
 	string toPrint;
@@ -135,12 +149,15 @@ void printDamage(int damage, int hp, string attacker, string defender)
 		toPrint = " has fainted";
 		toPrint = defender + toPrint;
 	}
-	
+
 	slowPrint(toPrint);
 
 	cout << "********************************************************" << endl;
 }
 
+//
+// Smart and interactive way of taking input
+//
 int handlingKeyboard()
 {
   int c;
@@ -154,17 +171,28 @@ int handlingKeyboard()
   return (c - 48);
 }
 
+//
+// About The Game
+//
 void options()
 {
   slowPrint("This is a turn by turn based pokemon battling game, in which two users get the chance to");
   slowPrint("battle each other by choosing which moves to damage the oponent pokemon........");
 }
 
+//
+// Not stating the obvious again and again
+//
 void exit()
 {
   cout << "good bye" << endl;
+  
 }
 
+//
+// Checks whether a given input is within a given range
+// If not takes input again
+//
 int takeInput(int checkMenu, int lower, int upper)
 {
 	if(checkMenu)

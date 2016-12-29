@@ -19,7 +19,6 @@ struct Pokemon // struct for each pokemon
 {
 	string name; // Name of the pokemon
 	int hp; // The health of the pokemon
-	//PowerMove powerMoves[50]; // The list of damage moves with a maximum of 50
 	string type; // Type of pokemon
 	string weakness; // Type of move
 };
